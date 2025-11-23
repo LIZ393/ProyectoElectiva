@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SagradoAbadAPP.Vistas.OrdenView"
+             Title="Confirmar Orden"
+             BackgroundColor="#f9f9f9">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Confirmar Orden"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#333" />
+
+            <!-- Formulario -->
+
+            <Entry x:Name="NombreEntry"
+                   Placeholder="Nombre completo"
+                   Keyboard="Text" />
+
+            <Editor x:Name="DireccionEditor"
+                    Placeholder="Dirección de envío"
+                    AutoSize="TextChanges"
+                    HeightRequest="80"
+                    TextColor="#333"
+                    BackgroundColor="White"
+                    Margin="0,0,0,10"
+                    />
+
+            <Entry x:Name="TelefonoEntry"
+                   Placeholder="Teléfono"
+                   Keyboard="Telephone" />
+
+            <Entry x:Name="EmailEntry"
+                   Placeholder="Email"
+                   Keyboard="Email" />
+
+            <Label Text="Método de pago" FontAttributes="Bold" TextColor="#333" />
+
+            <Picker x:Name="PagoPicker" Title="Seleccione método de pago">
+                <Picker.Items>
+                    <x:String>Tarjeta de crédito</x:String>
+                    <x:String>PayPal</x:String>
+                    <x:String>Transferencia bancaria</x:String>
+                    <x:String>Pago contra entrega</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- Resumen simple del pedido -->
+            <Label Text="Resumen del pedido" FontAttributes="Bold" FontSize="20" TextColor="#333" />
+
+            <CollectionView x:Name="ResumenPedidoCollection" HeightRequest="200" BackgroundColor="White"  Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="10" Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Frame 
+         
+                  Padding="0"
+                  BackgroundColor="#F3F4F6">
+                                        <Image Source="{Binding Producto.ImagenPrincipal}" 
+                      Aspect="AspectFill"
+              BackgroundColor="#F9FAFB" />
+                            </Frame>
+                            <Label Text="{Binding Producto.NombreProducto}" FontAttributes="Bold" WidthRequest="150" TextColor="#222" />
+                            <Label Text="{Binding Cantidad}" HorizontalOptions="Center" TextColor="#555" />
+                            <Label Text="{Binding Producto.Precio, StringFormat='${0:F2}'}" HorizontalOptions="End" WidthRequest="70" TextColor="#222" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button x:Name="ConfirmarButton"
+                    Text="Confirmar Compra"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    Clicked="ConfirmarButton_Clicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

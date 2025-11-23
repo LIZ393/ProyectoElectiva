@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SagradoAbadAPP.Vistas.MainPage"
+             Title="Productos"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F8F9FA">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header moderno con gradiente -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="#6366F1" 
+              
+               Padding="20,30,20,20"
+               HasShadow="True">
+            <StackLayout>
+                <Label Text="🛍️ Nuestros Productos"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                <Label Text="Descubre nuestra selección especial"
+                       FontSize="14"
+                       TextColor="#E0E7FF"
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,0" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Barra de búsqueda moderna -->
+        <Frame Grid.Row="1" 
+               BackgroundColor="White" 
+               CornerRadius="25" 
+               Padding="15,10"
+               Margin="20,15,20,10"
+               HasShadow="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" 
+                       Text="🔍" 
+                       FontSize="18"
+                       VerticalOptions="Center"
+                       Margin="5,0,10,0" />
+
+                <SearchBar Grid.Column="1"
+                           x:Name="SearchBarProductos"
+                           Placeholder="Buscar productos..."
+                           BackgroundColor="Transparent"
+                           TextChanged="OnSearchTextChanged"
+                           />
+
+
+            </Grid>
+        </Frame>
+
+        <!-- Contenido principal con estados -->
+        <Grid Grid.Row="2" Margin="10,0">
+
+            <!-- Estado de carga -->
+            
+
+           
+
+                <CollectionView x:Name="ProductsCollectionView"
+                                ItemsSource="{Binding Productos}"
+                                SelectionMode="Single"
+                                SelectionChanged="OnProductSelected">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" 
+                                         Span="2" 
+                                         HorizontalItemSpacing="10"
+                                         VerticalItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="20" 
+                                   Padding="0"
+                                   HasShadow="True"
+                                   Margin="5">
+
+                                <Frame.Shadow>
+                                    <Shadow Brush="Gray" Offset="2,4" Radius="8" Opacity="0.1" />
+                                </Frame.Shadow>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Imagen del producto -->
+                                    <Frame Grid.Row="0" 
+                                          
+                                           Padding="0"
+                                           BackgroundColor="#F3F4F6">
+                                        <Image Source="{Binding ImagenPrincipal}" 
+                                               Aspect="AspectFill"
+                                               BackgroundColor="#F9FAFB" />
+                                    </Frame>
+
+                                    <!-- Badge de estado/oferta -->
+                                    <Frame Grid.Row="0"
+                                           BackgroundColor="#EF4444"
+                                           CornerRadius="10"
+                                           Padding="8,4"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Start"
+                                           Margin="10"
+                                           IsVisible="{Binding TieneOferta}">
+                                        <Label Text="OFERTA" 
+                                               TextColor="White" 
+                                               FontSize="10"
+                                               FontAttributes="Bold" />
+                                    </Frame>
+
+                                    <!-- Información del producto -->
+                                    <StackLayout Grid.Row="1" 
+                                                 Padding="15,10,15,5">
+                                    <Label Text="{Binding NombreProducto}" 
+                                               FontSize="16" 
+                                               FontAttributes="Bold"
+                                               TextColor="#1F2937"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="2" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Row="2" 
+                                                 Padding="15,0,15,5">
+                                        <Label Text="{Binding Descripcion}" 
+                                               FontSize="12" 
+                                               TextColor="#6B7280"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="2" />
+                                    </StackLayout>
+
+                                    <!-- Precio y rating -->
+                                    <Grid Grid.Row="3" 
+                                          Padding="15,5,15,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0"
+                                               Text="{Binding Precio, StringFormat='{0:C}'}" 
+                                               FontSize="18" 
+                                               FontAttributes="Bold"
+                                               TextColor="#059669"
+                                               VerticalOptions="Center" />
+
+                                        
+                                    </Grid>
+
+                                    <!-- Botón de acción -->
+                                    <Button Grid.Row="4"
+                                            Text="Agregar al carrito"
+                                            BackgroundColor="#6366F1"
+                                            TextColor="White"
+                                            CornerRadius="15"
+                                            FontSize="12"
+                                            Clicked="AgregarCarrito"
+                                            Margin="15,0,15,15"
+                                            Padding="0,8"
+                                            />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+          
+        </Grid>
+    </Grid>
+</ContentPage>

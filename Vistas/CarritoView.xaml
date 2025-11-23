@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SagradoAbadAPP.Vistas.CarritoView"
+             Title="Carrito de Compras"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#f9f9f9">
+
+    <VerticalStackLayout Padding="15" Spacing="20">
+
+        <!-- Título principal -->
+        <Label Text="Carrito de Compras"
+               FontSize="28"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#333" />
+
+        <!-- Lista de productos -->
+        <CollectionView ItemsSource="{Binding ProductosCarrito}"
+                        SelectionMode="None"
+                        Margin="0,0,0,10"
+                        BackgroundColor="White"
+                       
+                        HeightRequest="400"
+                       >
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#ddd"
+                           CornerRadius="10"
+                           Padding="12"
+                           Margin="0,6"
+                           HasShadow="True"
+                           BackgroundColor="White">
+
+                        <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+
+                            <Image Source="{Binding Producto.ImagenPrincipal}"
+                                   WidthRequest="70"
+                                   HeightRequest="70"
+                                   Aspect="AspectFill"
+                                   VerticalOptions="Center"
+                                    />
+
+                            <VerticalStackLayout VerticalOptions="Center" WidthRequest="200" Spacing="4">
+                                <Label Text="{Binding Producto.NombreProducto}"
+                                       FontAttributes="Bold"
+                                       FontSize="18"
+                                       TextColor="#222" />
+                                <Label Text="{Binding Producto.Descripcion}"
+                                       FontSize="13"
+                                       TextColor="#666"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2" />
+                                <Label Text="{Binding Producto.Categoria.NombreCategoria}"
+                                       FontSize="12"
+                                       TextColor="#999" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="Center" Spacing="10">
+
+                                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="End">
+                                    <Button Text="−"
+                                            WidthRequest="35"
+                                            HeightRequest="35"
+                                            BackgroundColor="#2196F3"
+                                            TextColor="White"
+                                            CornerRadius="6"
+                                            FontAttributes="Bold"
+                                            Clicked="DisminuirCantidad" />
+
+                                    <Label Text="{Binding Cantidad}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           WidthRequest="35"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#333" />
+
+                                    <Button Text="+"
+                                            WidthRequest="35"
+                                            HeightRequest="35"
+                                            BackgroundColor="#2196F3"
+                                            TextColor="White"
+                                            CornerRadius="6"
+                                            FontAttributes="Bold"
+                                            Clicked="AumentarCantidad" />
+                                </HorizontalStackLayout>
+
+                                <Label Text="{Binding Producto.Precio, StringFormat='Precio: ${0:F2}'}"
+                                       FontAttributes="Bold"
+                                       FontSize="15"
+                                       HorizontalOptions="Center"
+                                       TextColor="#222" />
+
+                                <Button Text="Eliminar"
+                                        BackgroundColor="#E53935"
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        CornerRadius="6"
+                                        HeightRequest="35"
+                                        HorizontalOptions="Center"
+                                        WidthRequest="90"
+                                        Clicked="EliminarProducto" />
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Sección total y botón -->
+        <Frame BackgroundColor="White"
+               CornerRadius="12"
+               Padding="20"
+               HasShadow="True"
+               Margin="0,10,0,0">
+
+            <VerticalStackLayout Spacing="20">
+
+                <HorizontalStackLayout >
+                    <Label Text="Total:"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#333" />
+                    <Label Text="{Binding TotalCarrito, StringFormat='${0:F2}'}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#2196F3" />
+                </HorizontalStackLayout>
+
+                <Button Text="Proceder a la Orden"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        Clicked="ProcederOrden_Clicked" />
+            </VerticalStackLayout>
+        </Frame>
+
+    </VerticalStackLayout>
+
+</ContentPage>
